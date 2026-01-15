@@ -26,7 +26,7 @@ jobs:
         env:
           VERSION: ${{ github.event.inputs.version }}
         run: |
-          cd /home/runner/work/E900V22D-CoreELEC/E900V22D-CoreELEC
+          cd /home/runner/work/E900V22C-CoreELEC/E900V22C-CoreELEC
           sh build.sh $VERSION
 
       - name: Export Image
