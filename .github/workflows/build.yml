@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # 创建 / 更新 Release 必需
+      contents: write
 
     steps:
       - name: Checkout code
@@ -22,22 +22,21 @@ jobs:
       - name: Set up environment
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y \
-            make gcc git texinfo gzip squashfs-tools \
-            autoconf automake libtool
+          sudo apt-get install -y make gcc git texinfo gzip squashfs-tools
+          sudo apt-get install -y autoconf automake libtool
 
       - name: Run Build
         env:
           VERSION: ${{ github.event.inputs.version }}
         run: |
-          # 明确使用 bash，避免 /bin/sh (dash) 不支持 pipefail
-          bash ./build.sh "$VERSION"
+          cd /home/runner/work/E900V22C-CoreELEC/E900V22C-CoreELEC
+          sh build.sh "$VERSION"
 
       - name: Collect artifacts
         run: |
           mkdir -p release
-          cp *.img.gz release/
-          cp *.img.gz.sha256 release/
+          cp /home/runner/work/E900V22C-CoreELEC/E900V22C-CoreELEC/*.img.gz release/
+          cp /home/runner/work/E900V22C-CoreELEC/E900V22C-CoreELEC/*.img.gz.sha256 release/
 
       - name: Upload artifacts (optional)
         uses: actions/upload-artifact@v4
@@ -51,7 +50,7 @@ jobs:
           tag_name: ${{ github.event.inputs.version }}
           name: CoreELEC ${{ github.event.inputs.version }}
           body: |
-            CoreELEC build for Skyworth E900V22C
+            CoreELEC build for E900V22C
 
             Version: ${{ github.event.inputs.version }}
             Built by GitHub Actions.
