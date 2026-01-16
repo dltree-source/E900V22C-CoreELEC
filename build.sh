@@ -16,9 +16,9 @@ kodi_userdata="${mount_point}/.kodi/userdata"
 
 echo "Welcome to build CoreELEC for Skyworth E900V22C!"
 echo "Downloading CoreELEC-${version} generic image"
-wget ${source_img_url} -O ${source_img_file} | exit 1
+wget ${source_img_url} -O ${source_img_file} || exit 1
 echo "Decompressing CoreELEC image"
-gzip -d ${source_img_file} | exit 1
+gzip -d ${source_img_file} || exit 1
 
 echo "Creating mount point"
 mkdir ${mount_point}
