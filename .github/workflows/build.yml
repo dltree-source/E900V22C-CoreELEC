@@ -26,11 +26,9 @@ jobs:
           sudo apt-get install -y autoconf automake libtool
 
       - name: Run Build
-        env:
-          VERSION: ${{ github.event.inputs.version }}
         run: |
           cd /home/runner/work/E900V22C-CoreELEC/E900V22C-CoreELEC
-          sh build.sh "$VERSION"
+          sh build.sh
 
       - name: Collect artifacts
         run: |
